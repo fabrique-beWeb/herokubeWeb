@@ -15,4 +15,4 @@ var serveur = http.createServer(function(req, res) {
 +'</html>');
 res.end();
 }); 
-serveur.listen(8080);
+serveur.listen(80);
