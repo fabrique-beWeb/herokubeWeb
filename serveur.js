@@ -16,7 +16,7 @@ db.serialize(function() {
 
 });
  
-db.close();
+
 //serveur web
 var app = express(); 
 app.get('/', function (req, res) { 
@@ -32,10 +32,15 @@ app.get('/client', function(request,response){
 } );
 app.get('/sqlite',function(req,res){
 	var retour = {};
-	  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+	db.serialize(function() {
+		db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
 		  var ligne = row.id + ": " + row.info;
 		  retour.push(ligne);
+		db.close();  
+	});
+	  
   });
+  
   response.setHeader('Content-Type', 'application/json');
     response.send(JSON.stringify(retour));
 });
