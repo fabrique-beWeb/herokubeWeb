@@ -2,7 +2,7 @@ var express = require('express');
 var sqlite = require('sqlite3').verbose(); 
 
 //Database
-var db = new sqlite3.Database(':memory:');
+var db = new sqlite.Database(':memory:');
  
 db.serialize(function() {
   db.run("CREATE TABLE lorem (info TEXT)");
